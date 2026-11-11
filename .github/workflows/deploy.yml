@@ -17,13 +17,16 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
+      # The lockfile is made on Windows; `npm install` lets npm add the
+      # Linux builds of native tools (Vite, Tailwind) that CI needs.
+      - run: npm install --no-audit --no-fund --loglevel=http
+        timeout-minutes: 8
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
