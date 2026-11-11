@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
+# Manual only. The live site is served from the `gh-pages` branch
+# (built locally with `npm run deploy`), like the first «Своя» site.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
